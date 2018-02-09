@@ -1,7 +1,7 @@
 extern crate chrono;
 
 use self::chrono::{DateTime, Utc};
-// use diesel::dsl::*;
+use super::schema::ctl;
 
 #[derive(Queryable)]
 pub struct Task {
@@ -9,4 +9,11 @@ pub struct Task {
     pub name: String,
     pub complete_date: Option<DateTime<Utc>>,
     pub discrete: bool,
+}
+
+#[derive(Insertable)]
+#[table_name="ctl"]
+pub struct NewTask {
+	pub name: String,
+	pub discrete: bool,
 }
