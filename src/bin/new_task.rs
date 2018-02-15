@@ -1,7 +1,7 @@
-extern crate GSD;
+extern crate get_stuff_done;
 extern crate diesel;
 
-use self::GSD::*;
+use self::get_stuff_done::*;
 use std::io::{stdin};
 
 fn main() {

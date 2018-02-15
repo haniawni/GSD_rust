@@ -1,12 +1,12 @@
-extern crate GSD;
+extern crate get_stuff_done;
 extern crate diesel;
 
-use self::GSD::*;
+use self::get_stuff_done::*;
 use self::models::*;
 use self::diesel::prelude::*;
 
 fn main() {
-    use GSD::schema::ctl::dsl::*;
+    use get_stuff_done::schema::ctl::dsl::*;
 
     let connection = establish_connection();
     let results = ctl.filter(complete_date.is_null())
