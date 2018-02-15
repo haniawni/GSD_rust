@@ -13,7 +13,7 @@ pub struct Task {
 
 #[derive(Insertable)]
 #[table_name="ctl"]
-pub struct NewTask {
-	pub name: String,
+pub struct NewTask<'a> {
+	pub name: &'a str,
 	pub discrete: bool,
 }

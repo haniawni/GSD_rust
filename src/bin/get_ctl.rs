@@ -9,7 +9,7 @@ fn main() {
     use GSD::schema::ctl::dsl::*;
 
     let connection = establish_connection();
-    let results = ctl  //.filter(published.eq(true))
+    let results = ctl.filter(complete_date.is_null())
         .limit(5)
         .load::<Task>(&connection)
         .expect("Error loading CTL");
