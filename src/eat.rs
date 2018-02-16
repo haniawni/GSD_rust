@@ -13,5 +13,5 @@ fn eat(name: String) -> Template {
 		foods: vec!["Bagel", "Beef", "Banana"].iter().map(|s| s.to_string()).collect()
 	};
 
-	Template::render("ctl",&context)
+	Template::render("eat",&context)
 }
