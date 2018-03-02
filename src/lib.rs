@@ -1,7 +1,9 @@
-#[macro_use]
-extern crate diesel;
 extern crate dotenv;
 extern crate r2d2;
+extern crate serde;
+extern crate serde_json;
+#[macro_use] extern crate serde_derive;
+#[macro_use] extern crate diesel;
 
 
 pub mod schema;
