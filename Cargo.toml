@@ -7,7 +7,7 @@ authors = ["Hani Awni <hani.awni@socialjustice.engineering"]
 [dependencies]
 diesel = { version = "1.0.0", features = ["postgres", "chrono"] }
 dotenv = "0.9.0"
-chrono = "0.4"
+chrono = {version = "0.4", features = ["serde"]}
 rocket = "0.3.6"
 rocket_codegen = "0.3.6"
 serde = "1.0"
@@ -19,4 +19,4 @@ r2d2 = "0.8"
 [dependencies.rocket_contrib]
 version = "*"
 default-features = false
-features = ["handlebars_templates"]
+features = ["handlebars_templates", "json"]

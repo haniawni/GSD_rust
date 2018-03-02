@@ -1,5 +1,6 @@
 extern crate get_stuff_done;
 extern crate diesel;
+extern crate chrono;
 
 use self::get_stuff_done::*;
 use self::models::*;

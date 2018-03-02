@@ -3,7 +3,7 @@ extern crate chrono;
 use self::chrono::{DateTime, Utc};
 use super::schema::ctl;
 
-#[derive(Queryable)]
+#[derive(Queryable, Serialize)]
 pub struct Task {
     pub id: i32,
     pub name: String,
