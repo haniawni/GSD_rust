@@ -1,27 +1,25 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
-
+extern crate dotenv;
+extern crate r2d2;
+extern crate serde;
+extern crate serde_json;
+#[macro_use] extern crate serde_derive;
+#[macro_use] extern crate diesel;
 extern crate rocket;
 extern crate rocket_contrib;
-#[macro_use] extern crate serde;
-extern crate serde_json;
-#[macro_use] extern crate diesel;
 extern crate r2d2_diesel;
-extern crate r2d2;
-extern crate dotenv;
 extern crate chrono;
-extern crate get_stuff_done;
 
+pub mod schema;
+pub mod models;
 mod db;
-mod models;
-
 
 use rocket_contrib::{Template, Json};
 use rocket::response::Redirect;
 use db::DbConn;
 use self::models::*;
 use self::diesel::prelude::*;
-use self::get_stuff_done::*;
 
 
 
@@ -35,15 +33,15 @@ fn index() -> Redirect {
 // ~~~~~~~~~~ CTL/Execution Routes
 
 #[get("/ctl", format = "application/json")]
-pub fn get_ctl(conn: DbConn) -> Json<Vec<Task>> {
-	use get_stuff_done::schema::ctl::dsl::*;
+pub fn get_ctl(conn: &DbConn) -> Json<Vec<Task>> {
+	use schema::ctl::dsl::*;
 
     let results = ctl.filter(complete_date.is_null())
         .load::<Task>(DbConn)
         .expect("Error loading CTL")
         .map(|task| Json(task));
 
-        return !Json;
+        return results;
 }
 
 // ~~~~~~~~~~~ EAT ROUTES: testing Rocket
