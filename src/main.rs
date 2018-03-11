@@ -63,6 +63,17 @@ fn append_ctl(conn: DbConn, tsk: String, disc: bool) -> &'static str {
 	return "Bagel Bites."
 }
 
+#[post("ctl"), format="application/json", data=nt]
+fn append_ctl_struct(conn: DbConn, nt: NewTask) -> &'static str {
+	use schema::ctl::dsl::*;
+
+	diesel::insert_into(ctl)
+	.values(&nt)
+	.get_result::<Task>(&*conn);
+
+	return "Struckt Bites."
+}
+
 // ~~~~~~~~~~~ EAT ROUTES: testing Rocket
 #[derive(Serialize)]
 struct Context {
