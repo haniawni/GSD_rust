@@ -32,17 +32,34 @@ fn index() -> Redirect {
 
 // ~~~~~~~~~~ CTL/Execution Routes
 
-#[get("/ctl", format = "application/json")]
-pub fn get_ctl(conn: &DbConn) -> Json<Vec<Task>> {
+#[get("/ctl")]
+fn get_ctl(conn: DbConn) -> QueryResult<Json<Vec<Task>>> {
 	use schema::ctl::dsl::*;
 
-    let results = ctl.filter(complete_date.is_null())
-        .load::<Task>(DbConn)
+    let mut results = ctl.filter(complete_date.is_null())
+    	.order(id.desc())
+        .load::<Task>(&*conn)
         .expect("Error loading CTL")
         .map(|task| Json(task));
 
         return results;
 }
+
+// #[post("/ctl/<tsk>/<disc>")]
+// fn append_ctl(conn: DbConn, tsk: String, disc: bool) ->  {
+// 	use schema::ctl::dsl::*;
+
+// 	let nt = New_Task{
+// 		name: tsk,
+// 		discrete: disc
+// 	};
+
+
+// 	diesel::insert_into(ctl::table)
+// 		.values(&nt)
+// 		.get_result(conn)
+// 		.expect("failed to insert  task to CTL")
+// }
 
 // ~~~~~~~~~~~ EAT ROUTES: testing Rocket
 #[derive(Serialize)]

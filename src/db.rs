@@ -4,8 +4,9 @@ use r2d2_diesel::ConnectionManager;
 use dotenv::dotenv;
 use std::env;
 
+
 // An alias to the type for a pool of Diesel PG connections.
-type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
+pub type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
 /// Initializes a database pool.
 pub fn init_pool() -> Pool {
