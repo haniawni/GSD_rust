@@ -39,7 +39,7 @@ fn get_ctl(conn: DbConn) -> QueryResult<Json<Vec<Task>>> {
     let mut results = ctl.filter(complete_date.is_null())
     	.order(id.desc())
         .load::<Task>(&*conn)
-        .expect("Error loading CTL")
+        // .expect("Error loading CTL")
         .map(|task| Json(task));
 
         return results;
