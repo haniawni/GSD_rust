@@ -46,7 +46,7 @@ fn get_ctl(conn: DbConn) -> QueryResult<Json<Vec<Task>>> {
 }
 
 #[post("/ctl/<tsk>/<disc>")]
-fn append_ctl(conn: DbConn, tsk: String, disc: bool) -> &'static str {
+fn append_ctl(conn: DbConn, tsk: String, disc: bool) -> Redirect {
 	use schema::ctl::dsl::*;
 
 	let nt = NewTask{
@@ -60,7 +60,7 @@ fn append_ctl(conn: DbConn, tsk: String, disc: bool) -> &'static str {
 		.get_result::<Task>(&*conn);
 		// .expect("failed to insert  task to CTL")
 
-	return "Bagel Bites."
+	return Redirect::to("/ctl")
 }
 
 // ~~~~~~~~~~~ EAT ROUTES: testing Rocket
