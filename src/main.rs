@@ -45,21 +45,23 @@ fn get_ctl(conn: DbConn) -> QueryResult<Json<Vec<Task>>> {
         return results;
 }
 
-// #[post("/ctl/<tsk>/<disc>")]
-// fn append_ctl(conn: DbConn, tsk: String, disc: bool) ->  {
-// 	use schema::ctl::dsl::*;
+#[post("/ctl/<tsk>/<disc>")]
+fn append_ctl(conn: DbConn, tsk: String, disc: bool) -> &'static str {
+	use schema::ctl::dsl::*;
 
-// 	let nt = New_Task{
-// 		name: tsk,
-// 		discrete: disc
-// 	};
+	let nt = NewTask{
+		name: &tsk,
+		discrete: disc
+	};
 
 
-// 	diesel::insert_into(ctl::table)
-// 		.values(&nt)
-// 		.get_result(conn)
-// 		.expect("failed to insert  task to CTL")
-// }
+	diesel::insert_into(ctl)
+		.values(&nt)
+		.get_result::<Task>(&*conn);
+		// .expect("failed to insert  task to CTL")
+
+	return "Bagel Bites."
+}
 
 // ~~~~~~~~~~~ EAT ROUTES: testing Rocket
 #[derive(Serialize)]
@@ -82,7 +84,7 @@ fn eat(name: String) -> Template {
 fn main() {
     rocket::ignite()
     .manage(db::init_pool())
-    .mount("/", routes![index, eat, get_ctl])
+    .mount("/", routes![index, eat, get_ctl, append_ctl])
     .attach(Template::fairing())
     .launch();
 } 
